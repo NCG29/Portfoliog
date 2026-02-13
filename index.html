@@ -76,7 +76,7 @@
             border-bottom-color: var(--secondary-color);
         }
 
-        /* Hero Section Professionnel */
+        /* Hero Section */
         .hero {
             background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
             color: white;
@@ -152,33 +152,6 @@
         .btn-secondary:hover {
             background: white;
             color: var(--primary-color);
-        }
-
-        .hero-stats {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 2rem;
-            padding: 2rem;
-            background: rgba(255,255,255,0.1);
-            backdrop-filter: blur(10px);
-            border-radius: 12px;
-            border: 1px solid rgba(255,255,255,0.2);
-        }
-
-        .stat-item {
-            text-align: center;
-        }
-
-        .stat-number {
-            font-size: 2.5rem;
-            font-weight: 700;
-            display: block;
-            margin-bottom: 0.5rem;
-        }
-
-        .stat-label {
-            font-size: 0.9rem;
-            opacity: 0.9;
         }
 
         /* Container principal */
@@ -271,38 +244,67 @@
             border-radius: 12px;
             overflow: hidden;
             box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-            transition: all 0.3s;
+            transition: all 0.35s;
             border: 1px solid var(--border-color);
         }
 
         .project-card:hover {
-            transform: translateY(-4px);
+            transform: translateY(-6px);
             box-shadow: 0 12px 24px rgba(0,0,0,0.15);
         }
 
-        .project-header {
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-            color: white;
-            padding: 2rem;
-            min-height: 160px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
+        /* Header de projet unifié - CORRIGÉ POUR AFFICHER LES IMAGES ENTIÈRES */
+        .project-header-custom {
+            position: relative;
+            width: 100%;
+            height: 0;
+            padding-bottom: 56.25%; /* Ratio 16:9 pour afficher l'image entière */
+            overflow: hidden;
+            background-color: #f0f0f0;
         }
 
-        .project-icon {
-            font-size: 3rem;
-            margin-bottom: 1rem;
+        .project-header-custom-inner {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: contain; /* Changé de 'cover' à 'contain' pour voir l'image entière */
+            background-position: center center;
+            background-repeat: no-repeat;
+            transition: transform 0.35s ease;
+        }
+
+        .project-card:hover .project-header-custom-inner {
+            transform: scale(1.05);
+        }
+
+        .project-header-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 24px;
+            background: linear-gradient(
+                to top,
+                rgba(0, 0, 0, 0.85) 0%,
+                rgba(0, 0, 0, 0.5) 50%,
+                transparent 100%
+            );
+            z-index: 2;
+        }
+
+        .project-header-custom h3 {
+            margin: 0;
+            font-weight: 700;
+            font-size: 1.5rem;
+            letter-spacing: 0.5px;
+            color: #ffffff;
+            text-shadow: 0 4px 12px rgba(0,0,0,0.8);
         }
 
         .project-content {
             padding: 2rem;
-        }
-
-        .project-content h3 {
-            color: var(--primary-color);
-            margin-bottom: 1rem;
-            font-size: 1.4rem;
         }
 
         .project-content p {
@@ -498,65 +500,6 @@
             opacity: 0.9;
         }
 
-        /* Animations */
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /* Responsive */
-        @media (max-width: 1024px) {
-            .hero-container {
-                grid-template-columns: 1fr;
-            }
-
-            .hero-stats {
-                grid-template-columns: repeat(3, 1fr);
-            }
-
-            .competences-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .hero-content h1 {
-                font-size: 2rem;
-            }
-
-            .hero-subtitle {
-                font-size: 1.2rem;
-            }
-
-            .nav-links {
-                gap: 1rem;
-                font-size: 0.85rem;
-            }
-
-            .projects-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .cv-header {
-                flex-direction: column;
-                text-align: center;
-            }
-
-            .cv-contact {
-                grid-template-columns: 1fr;
-            }
-
-            .hero-stats {
-                grid-template-columns: 1fr;
-            }
-        }
-
         /* Detail du projet */
         .back-button {
             display: inline-flex;
@@ -609,6 +552,65 @@
             color: var(--text-light);
             line-height: 1.8;
         }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .hero-container {
+                grid-template-columns: 1fr;
+            }
+
+            .competences-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .project-header-custom {
+                padding-bottom: 66.67%; /* Ratio 3:2 pour tablettes */
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero-content h1 {
+                font-size: 2rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1.2rem;
+            }
+
+            .nav-links {
+                gap: 1rem;
+                font-size: 0.85rem;
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .cv-header {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .cv-contact {
+                grid-template-columns: 1fr;
+            }
+            
+            .project-header-custom {
+                padding-bottom: 75%; /* Ratio 4:3 pour mobile */
+            }
+        }
     </style>
 </head>
 <body>
@@ -643,20 +645,6 @@
                     <button class="btn btn-secondary" onclick="showSection('cv')">
                         Mon parcours
                     </button>
-                </div>
-            </div>
-            <div class="hero-stats">
-                <div class="stat-item">
-                    <span class="stat-number">4+</span>
-                    <span class="stat-label">Projets techniques</span>
-                </div>
-                <div class="stat-item">
-                    <span class="stat-number">2</span>
-                    <span class="stat-label">Années d'études</span>
-                </div>
-                <div class="stat-item">
-                    <span class="stat-number">4</span>
-                    <span class="stat-label">Compétences clés</span>
                 </div>
             </div>
         </div>
@@ -727,7 +715,7 @@
 
                 <div class="competences-grid">
                     <div class="competence-card">
-                        <h3>🔍 Vérifier</h3>
+                        <h3>Vérifier</h3>
                         <ul class="competence-list">
                             <li>Identifier les tests et mesures à mettre en place pour valider le fonctionnement d'un système</li>
                             <li>Certifier le fonctionnement d'un nouvel équipement industriel</li>
@@ -735,7 +723,7 @@
                     </div>
 
                     <div class="competence-card">
-                        <h3>🎨 Concevoir</h3>
+                        <h3>Concevoir</h3>
                         <ul class="competence-list">
                             <li>Proposer des solutions techniques liées à l'analyse fonctionnelle</li>
                             <li>Dérisquer les solutions techniques retenues</li>
@@ -743,7 +731,7 @@
                     </div>
 
                     <div class="competence-card">
-                        <h3>⚙️ Implanter</h3>
+                        <h3>Implanter</h3>
                         <ul class="competence-list">
                             <li>Appliquer une procédure de fabrication pour implanter les composants matériels et/ou logiciels</li>
                             <li>Evaluer la conformité du système</li>
@@ -751,7 +739,7 @@
                     </div>
 
                     <div class="competence-card">
-                        <h3>🔧 Maintenir</h3>
+                        <h3>Maintenir</h3>
                         <ul class="competence-list">
                             <li>Exécuter l'entretien et le contrôle d'un système en respectant une procédure</li>
                             <li>Diagnostiquer un dysfonctionnement dans un système</li>
@@ -771,10 +759,14 @@
             </div>
 
             <div class="projects-grid">
+                <!-- 🖼️ PROJET 1 - ROBOT SUIVEUR -->
+                <!-- Remplacez VOTRE_LIEN_IMAGE_ROBOT par le lien de votre image -->
                 <div class="project-card">
-                    <div class="project-header">
-                        <div class="project-icon">🤖</div>
-                        <h3>Robot Suiveur de Ligne</h3>
+                    <div class="project-header-custom">
+                        <div class="project-header-custom-inner" style="background-image: url('VOTRE_LIEN_IMAGE_ROBOT');"></div>
+                        <div class="project-header-overlay">
+                            <h3>Robot Suiveur de Ligne</h3>
+                        </div>
                     </div>
                     <div class="project-content">
                         <p>
@@ -790,10 +782,13 @@
                     </div>
                 </div>
 
+                <!-- 🖼️ PROJET 2 - VÉRIFICATION CHARGEUR -->
                 <div class="project-card">
-                    <div class="project-header">
-                        <div class="project-icon">🔋</div>
-                        <h3>Vérification de Chargeur</h3>
+                    <div class="project-header-custom">
+                        <div class="project-header-custom-inner" style="background-image: url('https://i.imgur.com/hSwk2s9.jpeg');"></div>
+                        <div class="project-header-overlay">
+                            <h3>Vérification de Chargeur</h3>
+                        </div>
                     </div>
                     <div class="project-content">
                         <p>
@@ -809,10 +804,14 @@
                     </div>
                 </div>
 
+                <!-- 🖼️ PROJET 3 - THERMOSTAT -->
+                <!-- Remplacez VOTRE_LIEN_IMAGE_THERMOSTAT par le lien de votre image -->
                 <div class="project-card">
-                    <div class="project-header">
-                        <div class="project-icon">🌡️</div>
-                        <h3>Thermostat Intelligent</h3>
+                    <div class="project-header-custom">
+                        <div class="project-header-custom-inner" style="background-image: url('VOTRE_LIEN_IMAGE_THERMOSTAT');"></div>
+                        <div class="project-header-overlay">
+                            <h3>Thermostat Intelligent</h3>
+                        </div>
                     </div>
                     <div class="project-content">
                         <p>
@@ -829,10 +828,14 @@
                     </div>
                 </div>
 
+                <!-- 🖼️ PROJET 4 - ANTIVOL CASIER -->
+                <!-- Remplacez VOTRE_LIEN_IMAGE_ANTIVOL par le lien de votre image -->
                 <div class="project-card">
-                    <div class="project-header">
-                        <div class="project-icon">📡</div>
-                        <h3>Antivol Casier de Pêche</h3>
+                    <div class="project-header-custom">
+                        <div class="project-header-custom-inner" style="background-image: url('VOTRE_LIEN_IMAGE_ANTIVOL');"></div>
+                        <div class="project-header-overlay">
+                            <h3>Antivol Casier de Pêche</h3>
+                        </div>
                     </div>
                     <div class="project-content">
                         <p>
@@ -850,7 +853,9 @@
             </div>
         </section>
 
-        <!-- Project Details (conservés de l'original mais avec le nouveau style) -->
+        <!-- Project Details (sections détail conservées telles quelles...) -->
+        <!-- Pour économiser l'espace, je garde seulement la section 2 avec l'image -->
+        
         <section id="project-detail-1">
             <a href="#" class="back-button" onclick="showSection('projects')">← Retour aux projets</a>
             
@@ -892,7 +897,7 @@
                 </div>
             </div>
         </section>
-
+        
         <section id="project-detail-2">
             <a href="#" class="back-button" onclick="showSection('projects')">← Retour aux projets</a>
             
@@ -907,6 +912,42 @@
             </div>
 
             <div class="detail-content">
+                <div class="detail-card">
+<h3>Circuit testé - Chargeur 5V</h3>
+
+<div style="
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+    overflow: hidden;
+    border-radius: 12px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+    background: white;
+    position: relative;
+">
+    <img src="https://i.imgur.com/hSwk2s9.jpeg" 
+         alt="Carte électronique - Chargeur 5V"
+         style="
+            width: 100%;
+            height: auto;
+            object-fit: contain;
+            object-position: center;
+            display: block;
+         ">
+</div>
+
+<p style="
+    text-align: center top;
+    color: var(--text-light);
+    font-size: 0.9rem;
+    margin-top: 1rem;
+    font-style: italic;
+">
+    Carte de chargeur 5V - Tests et mesures effectués sur chaque étage
+</p>
+
+                </div>
+                
                 <div class="detail-card">
                     <h3>🎯 Objectif du projet</h3>
                     <p>Valider le bon fonctionnement de chaque étage d'un chargeur électronique par des tests et mesures approfondis.</p>
@@ -1009,13 +1050,14 @@
             <div class="cv-container">
                 <div class="cv-header">
                     <div class="cv-photo">NC</div>
+                    
                     <div class="cv-info">
                         <h2>Nicolas Colin--Gasparini</h2>
                         <p class="cv-title">Etudiant en Génie Electrique et Informatique Industrielle</p>
                         <div class="cv-contact">
                             <div class="cv-contact-item">
                                 <span>📧</span>
-                                <span>colingasparininicolas@gmail.com</span>
+                                <span><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="583b373431363f392b28392a31363136313b3734392b183f35393134763b3735">[email&#160;protected]</a></span>
                             </div>
                             <div class="cv-contact-item">
                                 <span>📱</span>
@@ -1092,7 +1134,7 @@
                 <div class="contact-card">
                     <div class="contact-icon">📧</div>
                     <h3>Email</h3>
-                    <p>colingasparininicolas@gmail.com</p>
+                    <p><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="187b777471767f796b68796a71767176717b7774796b587f75797174367b7775">[email&#160;protected]</a></p>
                 </div>
 
                 <div class="contact-card">
@@ -1118,38 +1160,36 @@
 
     <!-- Footer -->
     <footer>
-        <p>&copy; 2025 Nicolas Colin--Gasparini - Portfolio Professionnel</p>
+        <p>&copy; 2026 Nicolas Colin--Gasparini - Portfolio</p>
         <p style="margin-top: 0.5rem; font-size: 0.9rem;">Etudiant en Génie Electrique et Informatique Industrielle</p>
     </footer>
 
     <!-- JavaScript -->
-    <script>
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
         function showSection(sectionId) {
-            // Masquer toutes les sections
             const sections = document.querySelectorAll('section');
             sections.forEach(section => {
                 section.classList.remove('active');
             });
 
-            // Afficher la section sélectionnée
             const targetSection = document.getElementById(sectionId);
             if (targetSection) {
                 targetSection.classList.add('active');
                 window.scrollTo({ top: 0, behavior: 'smooth' });
             }
 
-            // Mettre à jour la navigation active
             document.querySelectorAll('.nav-links a').forEach(link => {
                 link.classList.remove('active');
             });
-            event.target.classList.add('active');
+            if (event && event.target) {
+                event.target.classList.add('active');
+            }
         }
 
         function showProjectDetail(projectId) {
             showSection('project-detail-' + projectId);
         }
 
-        // Animation au scroll
         document.addEventListener('DOMContentLoaded', function() {
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
